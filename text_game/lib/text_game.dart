@@ -3,6 +3,9 @@
 /// More dartdocs go here.
 library;
 
-export 'src/text_game_base.dart';
+export 'src/location.dart';
+export 'src/text_game.dart';
+export 'src/text_game_progress.dart';
+export 'src/text_game_session.dart';
 
 // TODO: Export any libraries intended for clients of this package.
