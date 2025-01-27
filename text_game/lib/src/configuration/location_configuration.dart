@@ -1,6 +1,6 @@
-import 'package:text_game/src/configuration/action_configuration.dart';
+import 'package:text_game/text_game.dart';
 
-class LocationConfiguration {
+class LocationConfiguration implements Location {
   const LocationConfiguration({
     required this.id,
     required this.name,
@@ -8,9 +8,13 @@ class LocationConfiguration {
     required this.actions,
   });
 
+  @override
   final String id;
+  @override
   final String name;
+  @override
   final String description;
 
-  final List<ActionConfiguration> actions;
+  @override
+  final List<Action> actions;
 }

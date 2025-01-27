@@ -13,12 +13,12 @@ class TextGameSession {
   Location get currentLocation {
     if (progress.currentLocationId == null) {
       final locationConfig = game.locations.first;
-      return Location.fromConfiguration(locationConfig);
+      return locationConfig;
     }
     final locationConfig = game.locations.firstWhere(
       (location) => location.id == progress.currentLocationId,
     );
-    return Location.fromConfiguration(locationConfig);
+    return locationConfig;
   }
 
   /// Returns the list of actions the user can perform based on the current location.
@@ -28,9 +28,7 @@ class TextGameSession {
         ) ??
         game.locations.first;
 
-    return locationConfig.actions
-        .map((actionConfig) => Action.fromConfiguration(actionConfig))
-        .toList();
+    return locationConfig.actions;
   }
 
   void performAction(Action action) {
