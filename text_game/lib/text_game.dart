@@ -3,8 +3,11 @@
 /// More dartdocs go here.
 library;
 
+export 'src/action.dart';
+export 'src/configuration/location_configuration.dart';
+export 'src/configuration/text_game_configuration.dart';
+export 'src/effect.dart';
 export 'src/location.dart';
-export 'src/text_game.dart';
 export 'src/text_game_progress.dart';
 export 'src/text_game_session.dart';
 

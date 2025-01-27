@@ -1,3 +1,6 @@
+import 'package:collection/collection.dart';
+import 'package:text_game/src/action.dart';
+import 'package:text_game/src/location.dart';
 import 'package:text_game/text_game.dart';
 
 class TextGameSession {
@@ -6,28 +9,45 @@ class TextGameSession {
     required this.progress,
   });
 
-  final TextGame game;
+  final TextGameConfiguration game;
   final TextGameProgress progress;
 
   Location get currentLocation {
     if (progress.currentLocationId == null) {
-      return game.locations.first;
+      final locationConfig = game.locations.first;
+      return Location(
+        locationConfig.id,
+        locationConfig.name,
+        locationConfig.description,
+        locationConfig.actions,
+      );
     }
-    return game.locations.firstWhere(
+    final locationConfig = game.locations.firstWhere(
       (location) => location.id == progress.currentLocationId,
+    );
+    return Location(
+      locationConfig.id,
+      locationConfig.name,
+      locationConfig.description,
+      locationConfig.actions,
     );
   }
 
-  List<Location> get currentExits {
-    return currentLocation.exits
-        .map((exitId) =>
-            game.locations.firstWhere((location) => location.id == exitId))
-        .toList();
+  /// Returns the list of actions the user can perform based on the current location.
+  List<Action> get currentActions {
+    final locationConfig = game.locations.firstWhereOrNull(
+          (location) => location.id == progress.currentLocationId,
+        ) ??
+        game.locations.first;
+
+    return locationConfig.actions;
   }
 
-  void go(String exitId) {
-    if (currentLocation.exits.contains(exitId)) {
-      progress.updateLocation(exitId);
+  void performAction(Action action) {
+    switch (action) {
+      case NavigationAction():
+        progress.updateLocation(action.locationId);
+        break;
     }
   }
 }

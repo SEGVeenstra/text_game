@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Action;
 import 'package:text_game/text_game.dart';
 import 'package:text_game_flutter/example_game.dart';
 
@@ -15,9 +15,9 @@ class _GamePageState extends State<GamePage> {
     progress: TextGameProgress(),
   );
 
-  void _go(Location exit) {
+  void _performAction(Action action) {
     setState(() {
-      session.go(exit.id);
+      session.performAction(action);
     });
   }
 
@@ -37,16 +37,19 @@ class _GamePageState extends State<GamePage> {
                     style: Theme.of(context).textTheme.headlineLarge),
                 Text(session.currentLocation.description),
                 Spacer(),
-                Text('Navigation'),
-                Divider(),
                 Column(
-                  children: session.currentExits
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: session.currentActions
                       .map(
-                        (exit) => ListTile(
-                          trailing: Icon(Icons.arrow_forward),
-                          title: Text(exit.name),
-                          onTap: () => _go(exit),
-                        ),
+                        (action) => switch (action) {
+                          NavigationAction() => ElevatedButton.icon(
+                              label: Text(action.label),
+                              icon: Icon(Icons.arrow_forward),
+                              iconAlignment: IconAlignment.end,
+                              onPressed: () => _performAction(action),
+                            ),
+                          _ => throw 'Unknown action type: $action',
+                        },
                       )
                       .toList(),
                 ),
