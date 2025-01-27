@@ -7,7 +7,7 @@ final exampleGame = TextGameConfiguration(
       name: 'Hallway',
       description: 'It\'s a bit dark in here.',
       actions: [
-        NavigationAction(
+        NavigationActionConfiguration(
           label: 'To the living room',
           effects: [],
           locationId: 'living',
@@ -19,12 +19,12 @@ final exampleGame = TextGameConfiguration(
       name: 'Living Room',
       description: 'The sofa looks very comfy!',
       actions: [
-        NavigationAction(
+        NavigationActionConfiguration(
           label: 'To the hallway',
           effects: [],
           locationId: 'hall',
         ),
-        NavigationAction(
+        NavigationActionConfiguration(
           label: 'To the kitchen',
           effects: [],
           locationId: 'kitchen',
@@ -36,7 +36,7 @@ final exampleGame = TextGameConfiguration(
       name: 'Kitchen',
       description: 'There is a very expensive looking fridge in here.',
       actions: [
-        NavigationAction(
+        NavigationActionConfiguration(
           label: 'To the living room',
           effects: [],
           locationId: 'living',

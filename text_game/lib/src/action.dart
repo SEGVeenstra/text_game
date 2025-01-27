@@ -1,3 +1,4 @@
+import 'package:text_game/src/configuration/action_configuration.dart';
 import 'package:text_game/src/effect.dart';
 
 abstract class Action {
@@ -9,6 +10,12 @@ abstract class Action {
   final String label;
 
   final List<Effect> effects;
+
+  factory Action.fromConfiguration(ActionConfiguration configuration) =>
+      switch (configuration) {
+        NavigationActionConfiguration() =>
+          NavigationAction.fromConfiguration(configuration),
+      };
 }
 
 class NavigationAction extends Action {
@@ -19,4 +26,12 @@ class NavigationAction extends Action {
   });
 
   final String locationId;
+
+  NavigationAction.fromConfiguration(
+      NavigationActionConfiguration configuration)
+      : this(
+          label: configuration.label,
+          effects: configuration.effects,
+          locationId: configuration.locationId,
+        );
 }

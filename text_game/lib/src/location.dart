@@ -1,4 +1,4 @@
-import 'package:text_game/src/action.dart';
+import 'package:text_game/text_game.dart';
 
 class Location {
   Location(
@@ -13,4 +13,15 @@ class Location {
   final String description;
 
   List<Action> actions;
+
+  factory Location.fromConfiguration(LocationConfiguration configuration) {
+    return Location(
+      configuration.id,
+      configuration.name,
+      configuration.description,
+      configuration.actions
+          .map((action) => Action.fromConfiguration(action))
+          .toList(),
+    );
+  }
 }

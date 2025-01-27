@@ -1,4 +1,4 @@
-import 'package:text_game/src/action.dart';
+import 'package:text_game/src/configuration/action_configuration.dart';
 
 class LocationConfiguration {
   const LocationConfiguration({
@@ -12,5 +12,5 @@ class LocationConfiguration {
   final String name;
   final String description;
 
-  final List<Action> actions;
+  final List<ActionConfiguration> actions;
 }

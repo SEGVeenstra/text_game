@@ -1,6 +1,4 @@
 import 'package:collection/collection.dart';
-import 'package:text_game/src/action.dart';
-import 'package:text_game/src/location.dart';
 import 'package:text_game/text_game.dart';
 
 class TextGameSession {
@@ -15,22 +13,12 @@ class TextGameSession {
   Location get currentLocation {
     if (progress.currentLocationId == null) {
       final locationConfig = game.locations.first;
-      return Location(
-        locationConfig.id,
-        locationConfig.name,
-        locationConfig.description,
-        locationConfig.actions,
-      );
+      return Location.fromConfiguration(locationConfig);
     }
     final locationConfig = game.locations.firstWhere(
       (location) => location.id == progress.currentLocationId,
     );
-    return Location(
-      locationConfig.id,
-      locationConfig.name,
-      locationConfig.description,
-      locationConfig.actions,
-    );
+    return Location.fromConfiguration(locationConfig);
   }
 
   /// Returns the list of actions the user can perform based on the current location.
@@ -40,7 +28,9 @@ class TextGameSession {
         ) ??
         game.locations.first;
 
-    return locationConfig.actions;
+    return locationConfig.actions
+        .map((actionConfig) => Action.fromConfiguration(actionConfig))
+        .toList();
   }
 
   void performAction(Action action) {

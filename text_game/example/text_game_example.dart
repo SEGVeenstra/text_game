@@ -7,7 +7,7 @@ void main() {
       name: 'Room A',
       description: 'You are in room A.',
       actions: [
-        NavigationAction(
+        NavigationActionConfiguration(
           label: 'To room B',
           effects: [],
           locationId: 'roomB',
@@ -19,7 +19,7 @@ void main() {
       name: 'Room B',
       description: 'You are in room B.',
       actions: [
-        NavigationAction(
+        NavigationActionConfiguration(
           label: 'To room A',
           effects: [],
           locationId: 'roomA',
