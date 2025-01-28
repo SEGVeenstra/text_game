@@ -4,8 +4,24 @@ abstract class Effect {
 
 class NavigationEffect extends Effect {
   const NavigationEffect({
-    required this.destination,
+    required this.locationId,
   });
 
-  final String destination;
+  final String locationId;
+}
+
+class AddItemEffect extends Effect {
+  const AddItemEffect({
+    required this.itemId,
+  });
+
+  final String itemId;
+}
+
+class RemoveItemEffect extends Effect {
+  const RemoveItemEffect({
+    required this.itemId,
+  });
+
+  final String itemId;
 }

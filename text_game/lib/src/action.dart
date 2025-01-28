@@ -5,7 +5,3 @@ abstract class Action {
 
   List<Effect> get effects;
 }
-
-abstract class NavigationAction extends Action {
-  String get locationId;
-}

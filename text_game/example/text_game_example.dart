@@ -7,10 +7,11 @@ void main() {
       name: 'Room A',
       description: 'You are in room A.',
       actions: [
-        NavigationActionConfiguration(
+        ActionConfiguration(
           label: 'To room B',
-          effects: [],
-          locationId: 'roomB',
+          effects: [
+            NavigationEffect(locationId: 'roomB'),
+          ],
         ),
       ],
     ),
@@ -19,17 +20,21 @@ void main() {
       name: 'Room B',
       description: 'You are in room B.',
       actions: [
-        NavigationActionConfiguration(
+        ActionConfiguration(
           label: 'To room A',
-          effects: [],
-          locationId: 'roomA',
-        )
+          effects: [
+            NavigationEffect(locationId: 'roomA'),
+          ],
+        ),
       ],
     ),
   ];
   final progress = TextGameProgress();
   final game = TextGameConfiguration(
     locations: locations,
+    items: [
+      Item(id: 'key', name: 'Key'),
+    ],
   );
   final session = TextGameSession(
     game: game,

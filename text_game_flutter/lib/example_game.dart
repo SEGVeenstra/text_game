@@ -1,16 +1,20 @@
 import 'package:text_game/text_game.dart';
 
 final exampleGame = TextGameConfiguration(
+  items: [
+    Item(id: 'key', name: 'Key'),
+  ],
   locations: [
     LocationConfiguration(
       id: 'hall',
       name: 'Hallway',
       description: 'It\'s a bit dark in here.',
       actions: [
-        NavigationActionConfiguration(
+        ActionConfiguration(
           label: 'To the living room',
-          effects: [],
-          locationId: 'living',
+          effects: [
+            NavigationEffect(locationId: 'living'),
+          ],
         ),
       ],
     ),
@@ -19,15 +23,17 @@ final exampleGame = TextGameConfiguration(
       name: 'Living Room',
       description: 'The sofa looks very comfy!',
       actions: [
-        NavigationActionConfiguration(
+        ActionConfiguration(
           label: 'To the hallway',
-          effects: [],
-          locationId: 'hall',
+          effects: [
+            NavigationEffect(locationId: 'hall'),
+          ],
         ),
-        NavigationActionConfiguration(
+        ActionConfiguration(
           label: 'To the kitchen',
-          effects: [],
-          locationId: 'kitchen',
+          effects: [
+            NavigationEffect(locationId: 'kitchen'),
+          ],
         ),
       ],
     ),
@@ -36,10 +42,23 @@ final exampleGame = TextGameConfiguration(
       name: 'Kitchen',
       description: 'There is a very expensive looking fridge in here.',
       actions: [
-        NavigationActionConfiguration(
+        ActionConfiguration(
           label: 'To the living room',
-          effects: [],
-          locationId: 'living',
+          effects: [
+            NavigationEffect(locationId: 'living'),
+          ],
+        ),
+        ActionConfiguration(
+          label: 'Add key to inventory',
+          effects: [
+            AddItemEffect(itemId: 'key'),
+          ],
+        ),
+        ActionConfiguration(
+          label: 'Remove key from inventory',
+          effects: [
+            RemoveItemEffect(itemId: 'key'),
+          ],
         ),
       ],
     ),

@@ -37,19 +37,27 @@ class _GamePageState extends State<GamePage> {
                     style: Theme.of(context).textTheme.headlineLarge),
                 Text(session.currentLocation.description),
                 Spacer(),
+                Wrap(
+                  spacing: 16,
+                  children: session.inventory.entries
+                      .map(
+                        (entry) => Chip(
+                          label: Text('${entry.key.name} x${entry.value}'),
+                        ),
+                      )
+                      .toList(),
+                ),
+                SizedBox(height: 8),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: session.currentActions
                       .map(
-                        (action) => switch (action) {
-                          NavigationAction() => ElevatedButton.icon(
-                              label: Text(action.label),
-                              icon: Icon(Icons.arrow_forward),
-                              iconAlignment: IconAlignment.end,
-                              onPressed: () => _performAction(action),
-                            ),
-                          _ => throw 'Unknown action type: $action',
-                        },
+                        (action) => ElevatedButton.icon(
+                          label: Text(action.label),
+                          icon: Icon(Icons.back_hand_outlined),
+                          iconAlignment: IconAlignment.end,
+                          onPressed: () => _performAction(action),
+                        ),
                       )
                       .toList(),
                 ),

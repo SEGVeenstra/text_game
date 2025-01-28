@@ -1,4 +1,5 @@
 import 'package:text_game/src/configuration/location_configuration.dart';
+import 'package:text_game/src/item.dart';
 
 /// A class representing a text-based game.
 ///
@@ -6,7 +7,9 @@ import 'package:text_game/src/configuration/location_configuration.dart';
 class TextGameConfiguration {
   TextGameConfiguration({
     required this.locations,
+    required this.items,
   });
 
   final List<LocationConfiguration> locations;
+  final List<Item> items;
 }

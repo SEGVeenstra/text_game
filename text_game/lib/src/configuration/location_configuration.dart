@@ -16,5 +16,5 @@ class LocationConfiguration implements Location {
   final String description;
 
   @override
-  final List<Action> actions;
+  final List<ActionConfiguration> actions;
 }
