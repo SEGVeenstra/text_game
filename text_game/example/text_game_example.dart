@@ -12,6 +12,7 @@ void main() {
           effects: [
             NavigationEffect(locationId: 'roomB'),
           ],
+          type: ActionType.navigate,
         ),
       ],
     ),
@@ -21,6 +22,7 @@ void main() {
       description: 'You are in room B.',
       actions: [
         ActionConfiguration(
+          type: ActionType.navigate,
           label: 'To room A',
           effects: [
             NavigationEffect(locationId: 'roomA'),

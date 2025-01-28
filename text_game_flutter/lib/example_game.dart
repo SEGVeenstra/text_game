@@ -11,6 +11,7 @@ final exampleGame = TextGameConfiguration(
       description: 'It\'s a bit dark in here.',
       actions: [
         ActionConfiguration(
+          type: ActionType.navigate,
           label: 'To the living room',
           effects: [
             NavigationEffect(locationId: 'living'),
@@ -24,12 +25,14 @@ final exampleGame = TextGameConfiguration(
       description: 'The sofa looks very comfy!',
       actions: [
         ActionConfiguration(
+          type: ActionType.navigate,
           label: 'To the hallway',
           effects: [
             NavigationEffect(locationId: 'hall'),
           ],
         ),
         ActionConfiguration(
+          type: ActionType.navigate,
           label: 'To the kitchen',
           effects: [
             NavigationEffect(locationId: 'kitchen'),
@@ -43,18 +46,21 @@ final exampleGame = TextGameConfiguration(
       description: 'There is a very expensive looking fridge in here.',
       actions: [
         ActionConfiguration(
+          type: ActionType.navigate,
           label: 'To the living room',
           effects: [
             NavigationEffect(locationId: 'living'),
           ],
         ),
         ActionConfiguration(
+          type: ActionType.use,
           label: 'Add key to inventory',
           effects: [
             AddItemEffect(itemId: 'key'),
           ],
         ),
         ActionConfiguration(
+          type: ActionType.use,
           label: 'Remove key from inventory',
           effects: [
             RemoveItemEffect(itemId: 'key'),

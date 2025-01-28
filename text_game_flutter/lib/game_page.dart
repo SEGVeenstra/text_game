@@ -54,7 +54,10 @@ class _GamePageState extends State<GamePage> {
                       .map(
                         (action) => ElevatedButton.icon(
                           label: Text(action.label),
-                          icon: Icon(Icons.back_hand_outlined),
+                          icon: Icon(switch (action.type) {
+                            ActionType.navigate => Icons.arrow_forward,
+                            ActionType.use => Icons.back_hand_outlined,
+                          }),
                           iconAlignment: IconAlignment.end,
                           onPressed: () => _performAction(action),
                         ),
