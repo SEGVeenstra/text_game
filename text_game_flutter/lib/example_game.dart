@@ -55,6 +55,7 @@ final exampleGame = TextGameConfiguration(
         ActionConfiguration(
           type: ActionType.use,
           label: 'Add key to inventory',
+          condition: Condition('!inventory.key'),
           effects: [
             AddItemEffect(itemId: 'key'),
           ],
@@ -62,6 +63,7 @@ final exampleGame = TextGameConfiguration(
         ActionConfiguration(
           type: ActionType.use,
           label: 'Remove key from inventory',
+          condition: Condition('inventory.key'),
           effects: [
             RemoveItemEffect(itemId: 'key'),
           ],

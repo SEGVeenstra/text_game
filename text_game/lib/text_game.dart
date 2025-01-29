@@ -5,6 +5,7 @@ library;
 
 export 'src/action.dart';
 export 'src/configuration/action_configuration.dart';
+export 'src/configuration/condition.dart';
 export 'src/configuration/location_configuration.dart';
 export 'src/configuration/text_game_configuration.dart';
 export 'src/effect.dart';

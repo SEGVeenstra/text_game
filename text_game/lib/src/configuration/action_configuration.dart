@@ -1,3 +1,4 @@
+import 'package:text_game/src/configuration/condition.dart';
 import 'package:text_game/text_game.dart';
 
 class ActionConfiguration implements Action {
@@ -5,6 +6,7 @@ class ActionConfiguration implements Action {
     required this.label,
     required this.effects,
     required this.type,
+    this.condition,
   });
 
   @override
@@ -15,4 +17,6 @@ class ActionConfiguration implements Action {
 
   @override
   final List<Effect> effects;
+
+  final Condition? condition;
 }

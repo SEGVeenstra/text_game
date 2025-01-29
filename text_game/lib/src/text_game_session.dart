@@ -28,7 +28,9 @@ class TextGameSession {
         ) ??
         game.locations.first;
 
-    return locationConfig.actions;
+    return locationConfig.actions
+        .where((action) => action.condition?.evaluate(this) ?? true)
+        .toList();
   }
 
   Map<Item, int> get inventory {
