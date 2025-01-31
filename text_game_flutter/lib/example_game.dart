@@ -32,8 +32,17 @@ final exampleGame = TextGameConfiguration(
           ],
         ),
         ActionConfiguration(
+          label: 'Push mysterious button',
+          condition: '!vars.pushed_button',
+          effects: [
+            ExpressionEffect(expression: 'vars.pushed_button = 1'),
+          ],
+          type: ActionType.use,
+        ),
+        ActionConfiguration(
           type: ActionType.navigate,
           label: 'To the kitchen',
+          condition: 'vars.pushed_button',
           effects: [
             NavigationEffect(locationId: 'kitchen'),
           ],
@@ -55,7 +64,7 @@ final exampleGame = TextGameConfiguration(
         ActionConfiguration(
           type: ActionType.use,
           label: 'Add key to inventory',
-          condition: Condition('!inventory.key'),
+          condition: '!inventory.key',
           effects: [
             AddItemEffect(itemId: 'key'),
           ],
@@ -63,7 +72,7 @@ final exampleGame = TextGameConfiguration(
         ActionConfiguration(
           type: ActionType.use,
           label: 'Remove key from inventory',
-          condition: Condition('inventory.key'),
+          condition: 'inventory.key',
           effects: [
             RemoveItemEffect(itemId: 'key'),
           ],

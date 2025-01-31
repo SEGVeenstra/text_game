@@ -28,7 +28,7 @@ class _GamePageState extends State<GamePage> {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: AnimatedSwitcher(
-            duration: const Duration(milliseconds: 500),
+            duration: const Duration(milliseconds: 200),
             child: Column(
               key: ValueKey(session.currentLocation.id),
               crossAxisAlignment: CrossAxisAlignment.stretch,
