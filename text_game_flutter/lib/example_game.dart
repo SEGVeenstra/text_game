@@ -3,6 +3,7 @@ import 'package:text_game/text_game.dart';
 final exampleGame = TextGameConfiguration(
   items: [
     Item(id: 'key', name: 'Key'),
+    Item(id: 'gold', name: 'Gold'),
   ],
   locations: [
     LocationConfiguration(
@@ -13,9 +14,18 @@ final exampleGame = TextGameConfiguration(
         ActionConfiguration(
           type: ActionType.navigate,
           label: 'To the living room',
-          effects: [
-            NavigationEffect(locationId: 'living'),
-          ],
+          effect: 'location = living',
+        ),
+        ActionConfiguration(
+          type: ActionType.use,
+          label: 'Add gold',
+          effect: 'inventory.gold++',
+        ),
+        ActionConfiguration(
+          type: ActionType.use,
+          label: 'Remove gold',
+          condition: 'inventory.gold > 0',
+          effect: 'inventory.gold--',
         ),
       ],
     ),
@@ -27,25 +37,19 @@ final exampleGame = TextGameConfiguration(
         ActionConfiguration(
           type: ActionType.navigate,
           label: 'To the hallway',
-          effects: [
-            NavigationEffect(locationId: 'hall'),
-          ],
+          effect: 'location = hall',
         ),
         ActionConfiguration(
           label: 'Push mysterious button',
           condition: '!vars.pushed_button',
-          effects: [
-            ExpressionEffect(expression: 'vars.pushed_button = 1'),
-          ],
+          effect: 'vars.pushed_button = true',
           type: ActionType.use,
         ),
         ActionConfiguration(
           type: ActionType.navigate,
           label: 'To the kitchen',
           condition: 'vars.pushed_button',
-          effects: [
-            NavigationEffect(locationId: 'kitchen'),
-          ],
+          effect: 'location = kitchen',
         ),
       ],
     ),
@@ -57,25 +61,19 @@ final exampleGame = TextGameConfiguration(
         ActionConfiguration(
           type: ActionType.navigate,
           label: 'To the living room',
-          effects: [
-            NavigationEffect(locationId: 'living'),
-          ],
+          effect: 'location = living',
         ),
         ActionConfiguration(
           type: ActionType.use,
           label: 'Add key to inventory',
           condition: '!inventory.key',
-          effects: [
-            AddItemEffect(itemId: 'key'),
-          ],
+          effect: 'inventory.key = 1',
         ),
         ActionConfiguration(
           type: ActionType.use,
           label: 'Remove key from inventory',
           condition: 'inventory.key',
-          effects: [
-            RemoveItemEffect(itemId: 'key'),
-          ],
+          effect: 'inventory.key = null',
         ),
       ],
     ),

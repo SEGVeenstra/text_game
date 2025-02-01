@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:text_game/src/parsers/condition_parser.dart';
+import 'package:text_game/src/parsers/effect_parser.dart';
 import 'package:text_game/text_game.dart';
 
 class TextGameSession {
@@ -49,21 +50,10 @@ class TextGameSession {
   void performAction(Action action) {
     action as ActionConfiguration;
 
-    for (final effect in action.effects) {
-      switch (effect) {
-        case NavigationEffect(:final locationId):
-          progress.updateLocation(locationId);
-        case AddItemEffect(:final itemId):
-          final item = game.items.firstWhere((item) => item.id == itemId);
-          progress.addItem(item);
-        case RemoveItemEffect(:final itemId):
-          final item = game.items.firstWhere((item) => item.id == itemId);
-          progress.removeItem(item);
-        case ExpressionEffect():
-          effect.apply(this);
-        default:
-          throw UnimplementedError('Effect not implemented: $effect');
-      }
-    }
+    EffectParser(
+      progress.inventory,
+      progress.variables,
+      progress.updateLocation,
+    ).parseAndExecute(action.effect);
   }
 }

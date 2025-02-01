@@ -9,9 +9,7 @@ void main() {
       actions: [
         ActionConfiguration(
           label: 'To room B',
-          effects: [
-            NavigationEffect(locationId: 'roomB'),
-          ],
+          effect: 'goTo(roomB)',
           type: ActionType.navigate,
         ),
       ],
@@ -24,9 +22,7 @@ void main() {
         ActionConfiguration(
           type: ActionType.navigate,
           label: 'To room A',
-          effects: [
-            NavigationEffect(locationId: 'roomA'),
-          ],
+          effect: 'goTo(roomA)',
         ),
       ],
     ),

@@ -3,7 +3,7 @@ import 'package:text_game/text_game.dart';
 class ActionConfiguration implements Action {
   const ActionConfiguration({
     required this.label,
-    required this.effects,
+    required this.effect,
     required this.type,
     this.condition,
   });
@@ -14,7 +14,7 @@ class ActionConfiguration implements Action {
   @override
   final ActionType type;
 
-  final List<Effect> effects;
+  final String effect;
 
   final String? condition;
 }
