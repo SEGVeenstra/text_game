@@ -31,7 +31,7 @@ void main() {
   final game = TextGameConfiguration(
     locations: locations,
     items: [
-      Item(id: 'key', name: 'Key'),
+      Item(id: 'key', name: 'Key', description: 'A key'),
     ],
   );
   final session = TextGameSession(
@@ -51,7 +51,7 @@ void printCurrentLocation(TextGameSession session) {
   final actions = session.currentActions;
   print(currentLocation.description);
   print('');
-  print('Exits:');
+  print('Actions:');
   for (var action in actions) {
     print('  - ${action.label}');
   }
