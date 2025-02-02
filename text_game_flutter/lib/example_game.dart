@@ -2,8 +2,16 @@ import 'package:text_game/text_game.dart';
 
 final exampleGame = TextGameConfiguration(
   items: [
-    Item(id: 'key', name: 'Key'),
-    Item(id: 'gold', name: 'Gold'),
+    Item(
+      id: 'key',
+      name: 'Key',
+      description: 'A key you found in the kitchen.\nWhat could it be for?',
+    ),
+    Item(
+      id: 'gold',
+      name: 'Gold',
+      description: 'Shiny gold coin(s).',
+    ),
   ],
   locations: [
     LocationConfiguration(

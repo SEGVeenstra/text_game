@@ -41,8 +41,13 @@ class _GamePageState extends State<GamePage> {
                   spacing: 16,
                   children: session.inventory.entries
                       .map(
-                        (entry) => Chip(
+                        (entry) => InputChip(
                           label: Text('${entry.key.name} x${entry.value}'),
+                          onPressed: () => _showDialog(
+                            context,
+                            '${entry.key.name} x${entry.value}',
+                            entry.key.description,
+                          ),
                         ),
                       )
                       .toList(),
@@ -50,14 +55,17 @@ class _GamePageState extends State<GamePage> {
                 SizedBox(height: 8),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
+                  spacing: 8,
                   children: session.currentActions
                       .map(
                         (action) => ElevatedButton.icon(
                           label: Text(action.label),
-                          icon: Icon(switch (action.type) {
-                            ActionType.navigate => Icons.arrow_forward,
-                            ActionType.use => Icons.back_hand_outlined,
-                          }),
+                          icon: Icon(
+                            switch (action.type) {
+                              ActionType.navigate => Icons.arrow_forward,
+                              ActionType.use => Icons.back_hand_outlined,
+                            },
+                          ),
                           iconAlignment: IconAlignment.end,
                           onPressed: () => _performAction(action),
                         ),
@@ -71,4 +79,21 @@ class _GamePageState extends State<GamePage> {
       ),
     );
   }
+}
+
+Future<void> _showDialog(
+    BuildContext context, String title, String content) async {
+  showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: Text(title),
+      content: Text(content),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text('CLOSE'),
+        ),
+      ],
+    ),
+  );
 }
