@@ -15,6 +15,20 @@ class _GamePageState extends State<GamePage> {
     progress: TextGameProgress(),
   );
 
+  @override
+  void initState() {
+    super.initState();
+    session.events.listen((event) async {
+      if (mounted) {
+        await _showDialog(
+          context,
+          'Event',
+          event.message,
+        );
+      }
+    });
+  }
+
   void _performAction(Action action) {
     setState(() {
       session.performAction(action);

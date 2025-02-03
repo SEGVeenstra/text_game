@@ -1,7 +1,16 @@
+import 'dart:async';
+
 import 'package:collection/collection.dart';
 import 'package:text_game/src/parsers/condition_parser.dart';
 import 'package:text_game/src/parsers/effect_parser.dart';
 import 'package:text_game/text_game.dart';
+
+class TextGameSessionEvent {
+  const TextGameSessionEvent({
+    required this.message,
+  });
+  final String message;
+}
 
 class TextGameSession {
   TextGameSession({
@@ -11,6 +20,8 @@ class TextGameSession {
 
   final TextGameConfiguration game;
   final TextGameProgress progress;
+  final _eventsController = StreamController<TextGameSessionEvent>.broadcast();
+  Stream get events => _eventsController.stream;
 
   Location get currentLocation {
     if (progress.currentLocationId == null) {
@@ -55,5 +66,12 @@ class TextGameSession {
       progress.variables,
       progress.updateLocation,
     ).parseAndExecute(action.effect);
+    if (action.message != null) {
+      _eventsController.add(
+        TextGameSessionEvent(
+          message: action.message!,
+        ),
+      );
+    }
   }
 }

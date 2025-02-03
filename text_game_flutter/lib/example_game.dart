@@ -52,6 +52,8 @@ final exampleGame = TextGameConfiguration(
           condition: '!vars.pushed_button',
           effect: 'vars.pushed_button = true',
           type: ActionType.use,
+          message:
+              "You hear a click from the kitchen door and the light on the lock turns green.",
         ),
         ActionConfiguration(
           type: ActionType.navigate,
