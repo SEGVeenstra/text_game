@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart' hide Action;
 import 'package:text_game/text_game.dart';
 import 'package:text_game_flutter/example_game.dart';
@@ -15,10 +17,12 @@ class _GamePageState extends State<GamePage> {
     progress: TextGameProgress(),
   );
 
+  late final StreamSubscription _eventsSubscription;
+
   @override
   void initState() {
     super.initState();
-    session.events.listen((event) async {
+    _eventsSubscription = session.events.listen((event) async {
       if (mounted) {
         await _showDialog(
           context,
@@ -92,6 +96,12 @@ class _GamePageState extends State<GamePage> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _eventsSubscription.cancel();
+    super.dispose();
   }
 }
 
