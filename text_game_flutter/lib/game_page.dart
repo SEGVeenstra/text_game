@@ -53,7 +53,8 @@ class _GamePageState extends State<GamePage> {
               children: [
                 Text(session.currentLocation.name,
                     style: Theme.of(context).textTheme.headlineLarge),
-                Text(session.currentLocation.description),
+                for (final description in session.currentLocation.description)
+                  Text(description.text),
                 Spacer(),
                 Wrap(
                   spacing: 16,
@@ -73,7 +74,6 @@ class _GamePageState extends State<GamePage> {
                 SizedBox(height: 8),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
-                  spacing: 8,
                   children: session.currentActions
                       .map(
                         (action) => ElevatedButton.icon(

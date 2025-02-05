@@ -17,12 +17,34 @@ final exampleGame = TextGameConfiguration(
     LocationConfiguration(
       id: 'hall',
       name: 'Hallway',
-      description: 'It\'s a bit dark in here.',
+      description: [
+        DescriptionConfiguration(
+          text: 'It\'s a bit dark in here.',
+          condition: '!vars.hall_light',
+        ),
+        DescriptionConfiguration(
+          text: 'The hallway is well lit.',
+          condition: 'vars.hall_light',
+        ),
+      ],
       actions: [
         ActionConfiguration(
           type: ActionType.navigate,
           label: 'To the living room',
+          condition: 'vars.hall_light',
           effect: 'location = living',
+        ),
+        ActionConfiguration(
+          type: ActionType.use,
+          label: 'Turn on the light',
+          condition: '!vars.hall_light',
+          effect: 'vars.hall_light = true',
+        ),
+        ActionConfiguration(
+          type: ActionType.use,
+          label: 'Turn off the light',
+          condition: 'vars.hall_light',
+          effect: 'vars.hall_light = false',
         ),
         ActionConfiguration(
           type: ActionType.use,
@@ -40,7 +62,9 @@ final exampleGame = TextGameConfiguration(
     LocationConfiguration(
       id: 'living',
       name: 'Living Room',
-      description: 'The sofa looks very comfy!',
+      description: [
+        DescriptionConfiguration(text: 'The sofa looks very comfy!')
+      ],
       actions: [
         ActionConfiguration(
           type: ActionType.navigate,
@@ -66,7 +90,10 @@ final exampleGame = TextGameConfiguration(
     LocationConfiguration(
       id: 'kitchen',
       name: 'Kitchen',
-      description: 'There is a very expensive looking fridge in here.',
+      description: [
+        DescriptionConfiguration(
+            text: 'There is a very expensive looking fridge in here.'),
+      ],
       actions: [
         ActionConfiguration(
           type: ActionType.navigate,

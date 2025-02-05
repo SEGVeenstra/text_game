@@ -13,8 +13,19 @@ class LocationConfiguration implements Location {
   @override
   final String name;
   @override
-  final String description;
+  final List<DescriptionConfiguration> description;
 
   @override
   final List<ActionConfiguration> actions;
+
+  LocationConfiguration copyWith({
+    List<DescriptionConfiguration>? description,
+  }) {
+    return LocationConfiguration(
+      id: id,
+      name: name,
+      description: description ?? this.description,
+      actions: actions,
+    );
+  }
 }

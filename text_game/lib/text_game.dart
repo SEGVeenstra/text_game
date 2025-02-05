@@ -5,8 +5,10 @@ library;
 
 export 'src/action.dart';
 export 'src/configuration/action_configuration.dart';
+export 'src/configuration/description_configuration.dart';
 export 'src/configuration/location_configuration.dart';
 export 'src/configuration/text_game_configuration.dart';
+export 'src/description.dart';
 export 'src/item.dart';
 export 'src/location.dart';
 export 'src/text_game_progress.dart';

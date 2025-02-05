@@ -1,3 +1,4 @@
+import 'package:text_game/src/configuration/description_configuration.dart';
 import 'package:text_game/text_game.dart';
 
 void main() {
@@ -5,7 +6,9 @@ void main() {
     LocationConfiguration(
       id: 'roomA',
       name: 'Room A',
-      description: 'You are in room A.',
+      description: [
+        DescriptionConfiguration(text: 'You are in room A.'),
+      ],
       actions: [
         ActionConfiguration(
           label: 'To room B',
@@ -17,7 +20,9 @@ void main() {
     LocationConfiguration(
       id: 'roomB',
       name: 'Room B',
-      description: 'You are in room B.',
+      description: [
+        DescriptionConfiguration(text: 'You are in room B.'),
+      ],
       actions: [
         ActionConfiguration(
           type: ActionType.navigate,

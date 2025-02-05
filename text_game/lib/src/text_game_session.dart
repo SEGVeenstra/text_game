@@ -24,14 +24,23 @@ class TextGameSession {
   Stream get events => _eventsController.stream;
 
   Location get currentLocation {
+    final LocationConfiguration locationConfig;
     if (progress.currentLocationId == null) {
-      final locationConfig = game.locations.first;
-      return locationConfig;
+      locationConfig = game.locations.first;
+    } else {
+      locationConfig = game.locations.firstWhere(
+        (location) => location.id == progress.currentLocationId,
+      );
     }
-    final locationConfig = game.locations.firstWhere(
-      (location) => location.id == progress.currentLocationId,
+    final description = locationConfig.description.where(
+      (d) =>
+          d.condition == null ||
+          ConditionParser(
+            variables: progress.variables,
+            inventory: progress.inventory,
+          ).evaluate(d.condition!),
     );
-    return locationConfig;
+    return locationConfig.copyWith(description: description.toList());
   }
 
   /// Returns the list of actions the user can perform based on the current location.
