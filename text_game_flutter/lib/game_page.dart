@@ -62,13 +62,15 @@ class _GamePageState extends State<GamePage> {
                     style: Theme.of(context).textTheme.headlineLarge),
                 SizedBox(height: 8),
                 Expanded(
-                  child: ListView.builder(
+                  child: ListView.separated(
                     itemCount: session.currentLocation.description.length,
                     itemBuilder: (context, index) {
                       final description =
                           session.currentLocation.description[index];
                       return Text(description.text);
                     },
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 8),
                   ),
                 ),
                 Spacer(),
