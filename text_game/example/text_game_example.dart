@@ -1,4 +1,4 @@
-import 'package:text_game/src/configuration/description_configuration.dart';
+import 'package:pub_semver/pub_semver.dart';
 import 'package:text_game/text_game.dart';
 
 void main() {
@@ -34,6 +34,10 @@ void main() {
   ];
   final progress = TextGameProgress();
   final game = TextGameConfiguration(
+    meta: MetaConfiguration(
+      title: 'Test',
+      version: Version(1, 0, 0),
+    ),
     locations: locations,
     items: [
       Item(id: 'key', name: 'Key', description: 'A key'),

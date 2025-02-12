@@ -2,18 +2,22 @@ import 'dart:async';
 
 import 'package:flutter/material.dart' hide Action;
 import 'package:text_game/text_game.dart';
-import 'package:text_game_flutter/example_game.dart';
 
 class GamePage extends StatefulWidget {
-  const GamePage({super.key});
+  const GamePage({
+    super.key,
+    required this.game,
+  });
+
+  final TextGameConfiguration game;
 
   @override
   State<GamePage> createState() => _GamePageState();
 }
 
 class _GamePageState extends State<GamePage> {
-  final session = TextGameSession(
-    game: exampleGame,
+  late final session = TextGameSession(
+    game: widget.game,
     progress: TextGameProgress(),
   );
 
@@ -42,6 +46,9 @@ class _GamePageState extends State<GamePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: CloseButton(),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -53,8 +60,17 @@ class _GamePageState extends State<GamePage> {
               children: [
                 Text(session.currentLocation.name,
                     style: Theme.of(context).textTheme.headlineLarge),
-                for (final description in session.currentLocation.description)
-                  Text(description.text),
+                SizedBox(height: 8),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: session.currentLocation.description.length,
+                    itemBuilder: (context, index) {
+                      final description =
+                          session.currentLocation.description[index];
+                      return Text(description.text);
+                    },
+                  ),
+                ),
                 Spacer(),
                 Wrap(
                   spacing: 16,

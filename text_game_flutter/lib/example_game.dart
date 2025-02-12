@@ -1,6 +1,10 @@
 import 'package:text_game/text_game.dart';
 
 final exampleGame = TextGameConfiguration(
+  meta: MetaConfiguration(
+    title: 'Example',
+    version: Version(1, 0, 0),
+  ),
   items: [
     Item(
       id: 'key',

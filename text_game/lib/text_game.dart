@@ -3,10 +3,13 @@
 /// More dartdocs go here.
 library;
 
+export 'package:pub_semver/pub_semver.dart';
+
 export 'src/action.dart';
 export 'src/configuration/action_configuration.dart';
 export 'src/configuration/description_configuration.dart';
 export 'src/configuration/location_configuration.dart';
+export 'src/configuration/meta_configuration.dart';
 export 'src/configuration/text_game_configuration.dart';
 export 'src/description.dart';
 export 'src/item.dart';

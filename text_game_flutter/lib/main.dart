@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:text_game_flutter/game_page.dart';
+import 'package:text_game_flutter/game_collection_page.dart';
 import 'package:text_game_flutter/theme/text_game_theme.dart';
 
 void main() {
@@ -14,7 +14,7 @@ class TextGameApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: textGameTheme,
-      home: GamePage(),
+      home: GameCollectionPage(),
     );
   }
 }
