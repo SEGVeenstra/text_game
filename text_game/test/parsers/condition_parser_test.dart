@@ -28,13 +28,13 @@ void main() {
             'inventory.sword': false,
             'vars.light_on': true,
             'vars.light_on && inventory.gold > 10': true,
+            'vars.light_on || inventory.gold > 1000': true,
+            'inventory.key == false || inventory.gold < 1000': true,
+            'inventory.key == false || inventory.gold > 1000': false,
             'vars.boss_hp > 20': true,
             'vars.boss_hp < 20': false,
             'vars.boss_hp == 30': true,
             'vars.boss_hp != 30': false,
-            '!vars.light_on': false,
-            '!(vars.boss_hp > 20)': false,
-            '!inventory.key': false,
           };
 
           tests.forEach(

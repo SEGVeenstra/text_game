@@ -11,27 +11,19 @@ class ConditionParser {
   }
 
   bool _evaluateExpression(String expression) {
-    // Handle negation at the beginning of the expression
-    final isNegated = expression.startsWith('!');
-    final rawExpression = isNegated ? expression.substring(1) : expression;
+    expression = expression.trim(); // Trim spaces
 
-    // Handle parentheses by evaluating the innermost group first
-    final parenthesisRegex = RegExp(r'\(([^()]+)\)');
-    String resolvedExpression = rawExpression;
-    while (parenthesisRegex.hasMatch(resolvedExpression)) {
-      resolvedExpression =
-          resolvedExpression.replaceAllMapped(parenthesisRegex, (match) {
-        final innerExpression = match.group(1)!;
-        final innerResult = _evaluateExpression(innerExpression);
-        return innerResult ? 'true' : 'false';
-      });
+    // Handle parentheses: only strip outer parentheses if the expression is fully wrapped in them
+    if (expression.startsWith('(') && expression.endsWith(')')) {
+      final innerExpression =
+          expression.substring(1, expression.length - 1).trim();
+      if (innerExpression.isNotEmpty) {
+        expression = innerExpression;
+      }
     }
 
-    // Evaluate the remaining logical expression
-    final result = _evaluateLogical(resolvedExpression);
-
-    // Apply negation if needed
-    return isNegated ? !result : result;
+    // Directly evaluate the logical expression
+    return _evaluateLogical(expression);
   }
 
   bool _evaluateLogical(String expression) {
@@ -39,15 +31,24 @@ class ConditionParser {
     if (expression.trim() == 'true') return true;
     if (expression.trim() == 'false') return false;
 
-    // Existing logic for evaluating comparison and logical operators
+    // Handle negation at the term level
     final orParts = expression.split('||');
     for (var orPart in orParts) {
       final andParts = orPart.split('&&');
       bool andResult = true;
       for (var andPart in andParts) {
-        // Evaluate each comparison individually
-        final comparisonResult = _evaluateComparison(andPart.trim());
-        andResult = andResult && comparisonResult;
+        andPart = andPart.trim();
+
+        // Handle negation before each term
+        final isNegated = andPart.startsWith('!');
+        final rawExpression = isNegated ? andPart.substring(1) : andPart;
+
+        // Evaluate the actual comparison
+        final comparisonResult = _evaluateComparison(rawExpression);
+
+        // Apply negation correctly
+        andResult =
+            andResult && (isNegated ? !comparisonResult : comparisonResult);
       }
       if (andResult) return true;
     }
@@ -55,61 +56,80 @@ class ConditionParser {
   }
 
   bool _evaluateComparison(String expression) {
-    // Match comparison operators like ==, !=, <, >, <=, >=
-    final comparisonRegex = RegExp(r'(==|!=|<=|>=|<|>)');
-    final match = comparisonRegex.firstMatch(expression);
-
-    if (match != null) {
-      final operator = match.group(0)!;
-      final parts = expression.split(operator);
-      final left = _getValue(parts[0]);
-      final right = _getValue(parts[1]);
-
-      switch (operator) {
-        case '==':
-          return left == right;
-        case '!=':
-          return left != right;
-        case '<':
-          return left < right;
-        case '>':
-          return left > right;
-        case '<=':
-          return left <= right;
-        case '>=':
-          return left >= right;
-        default:
-          throw Exception("Unknown comparison operator: $operator");
-      }
-    }
-
-    // If no comparison, treat as shorthand
-    return _evaluateShorthand(expression);
-  }
-
-  bool _evaluateShorthand(String expression) {
-    // Check for negation
+    // Handle negation at the start of an expression
     final isNegated = expression.startsWith('!');
     final rawExpression = isNegated ? expression.substring(1) : expression;
 
-    // Match inventory or variable shorthand
+    // Match comparison operators like ==, !=, <, >, <=, >=
+    final comparisonRegex = RegExp(r'(==|!=|<=|>=|<|>)');
+    final match = comparisonRegex.firstMatch(rawExpression);
+
+    if (match != null) {
+      final operator = match.group(0)!;
+      final parts = rawExpression.split(operator);
+      final left = _getValue(parts[0]);
+      final right = _getValue(parts[1]);
+
+      bool result;
+      switch (operator) {
+        case '==':
+          result = left == right;
+          break;
+        case '!=':
+          result = left != right;
+          break;
+        case '<':
+          result = left < right;
+          break;
+        case '>':
+          result = left > right;
+          break;
+        case '<=':
+          result = left <= right;
+          break;
+        case '>=':
+          result = left >= right;
+          break;
+        default:
+          throw Exception("Unknown comparison operator: $operator");
+      }
+
+      return isNegated ? !result : result;
+    }
+
+    // If no comparison, treat as shorthand
+    return isNegated
+        ? !_evaluateShorthand(rawExpression)
+        : _evaluateShorthand(rawExpression);
+  }
+
+  bool _evaluateShorthand(String expression) {
+    expression = expression.trim(); // ✅ Trim first!
+
+    final isNegated = expression.startsWith('!');
+    final rawExpression = isNegated
+        ? expression.substring(1).trim()
+        : expression; // ✅ Trim again after removing `!`
+
     final match = RegExp(r'(\w+)\.(\w+)').firstMatch(rawExpression);
     if (match != null) {
       final namespace = match.group(1)!;
       final key = match.group(2)!;
 
-      bool result = false;
-
+      dynamic value;
       if (namespace == "inventory") {
-        // Inventory shorthand: true if item count > 0
-        result = (inventory[key] ?? 0) > 0;
+        value = inventory[key];
       } else if (namespace == "vars") {
-        // Variable shorthand: evaluate "truthiness"
-        final value = variables[key];
-        result = _isTruthy(value);
+        value = variables[key];
       } else {
         throw Exception("Unknown namespace: $namespace");
       }
+
+      bool result = _isTruthy(value);
+
+      // Debug logs
+      print(
+          "Evaluating: $expression -> Raw Value: $value -> Truthy: $result -> isNegated: $isNegated");
 
       return isNegated ? !result : result;
     }
@@ -148,9 +168,10 @@ class ConditionParser {
   }
 
   bool _isTruthy(dynamic value) {
+    if (value == null) return false;
     if (value is bool) return value;
-    if (value is num) return value != 0;
+    if (value is num) return value != 0; // Convert nonzero numbers to true
     if (value is String) return value.isNotEmpty;
-    return false; // null or other types are "falsey"
+    return true; // Any non-null value is truthy
   }
 }
