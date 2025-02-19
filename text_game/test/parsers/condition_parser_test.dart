@@ -23,12 +23,12 @@ void main() {
           );
 
           final tests = <String, bool>{
-            'inventory.key': true,
-            'inventory.gold': true,
-            'inventory.sword': false,
-            'vars.light_on': true,
-            'vars.light_on && inventory.gold > 10': true,
-            'vars.light_on || inventory.gold > 1000': true,
+            'inventory.key > 0': true,
+            'inventory.gold > 0': true,
+            'inventory.sword > 0': false,
+            'vars.light_on == true': true,
+            'vars.light_on == true && inventory.gold > 10': true,
+            'vars.light_on == true || inventory.gold > 1000': true,
             'inventory.key == false || inventory.gold < 1000': true,
             'inventory.key == false || inventory.gold > 1000': false,
             'vars.boss_hp > 20': true,
