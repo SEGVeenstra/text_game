@@ -34,7 +34,8 @@ void main() {
             'vars.boss_hp > 20': true,
             'vars.boss_hp < 20': false,
             'vars.boss_hp == 30': true,
-            'vars.boss_hp != 30': false,
+            '(vars.boss_hp != 30 && vars.light_on == true) || inventory.sword > 0':
+                false,
           };
 
           tests.forEach(
