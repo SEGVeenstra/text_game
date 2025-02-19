@@ -4,6 +4,8 @@
 library;
 
 export 'package:pub_semver/pub_semver.dart';
+export 'package:yaml/yaml.dart';
+export 'package:yaml_edit/yaml_edit.dart';
 
 export 'src/action.dart';
 export 'src/configuration/action_configuration.dart';
