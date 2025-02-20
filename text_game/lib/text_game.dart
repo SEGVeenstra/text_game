@@ -16,6 +16,7 @@ export 'src/configuration/text_game_configuration.dart';
 export 'src/description.dart';
 export 'src/item.dart';
 export 'src/location.dart';
+export 'src/parsers/text_adventure_parser.dart';
 export 'src/text_game_progress.dart';
 export 'src/text_game_session.dart';
 

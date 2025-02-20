@@ -1,5 +1,4 @@
 import 'package:text_game/text_game.dart';
-import 'package:yaml/yaml.dart';
 
 TextGameConfiguration textGameConfigurationFromYaml(YamlMap yaml) {
   final title = yaml['meta']['title'];
