@@ -13,7 +13,7 @@ locations:
     description:
       - text: The day started out like any other.
       - text: When you got home from your friend's house, you're mother asked you to go upstairs and clean your room.
-      - text: This is where our story begin.
+      - text: This is where our story begins.
     actions:
       - type: navigate
         label: Start
@@ -32,5 +32,21 @@ locations:
         condition: vars.played_games != true
         message: |
           Just when you finished your game, your mom yell's up the stairs:
+
           "Hun, I want to make pancakes for dinner but we're out of eggs, you have to buy some at the grocery store.
           And please hurry, because the store closes in an hour!"
+      - type: use
+        label: Play one more game
+        effect: location = game_over_games
+        condition: vars.played_games == true
+      - type: use
+        label: Clean your room
+        effect: vars.room_clean = true && inventory.bike_key = 1
+        condition: vars.room_clean != true
+  - id: game_over_games
+    name: Game Over
+    description:
+      - text: You forgot the time and now the grocery store is closed.
+      - text: You're mom is not happy.
+      - text: You're grounded for a week.
+        
