@@ -1,21 +1,33 @@
 meta:
-  title: Example Game
-  description: This is an example Text Adventure for campfireta.com.
+  title: Pancakes for dinner.
+  description: What starts out as a normal day, ends up as a tiny adventure.
   author: Stephan E.G. Veenstra
   version: 0.1.0
 items:
-  - id: example_item
-    name: Example Item
-    description: This is a Example Item
+  - id: bike_key
+    name: Bicycle Key
+    description: The key to your bicycle that you found while cleaning up your room.
 locations:
-  - id: test_location
-    name: Test Location
+  - id: intro
+    name: Intro
     description:
-      - text: This is a description of a location.
-      - text: Descriptions can be conditional, so you can change the description.
-        condition: vars.show_conditional_description == true
+      - text: The day started out like any other.
+      - text: When you got home from your friend's house, you're mother asked you to go upstairs and clean your room.
+      - text: This is where our story begin.
+    actions:
+      - type: navigate
+        label: Start
+        effect: location = room
+  - id: room
+    name: Your room
+    description:
+      - text: You're in your room.
+      - text: It's a big mess!.
+        condition: vars.room_clean != true
+      - text: You're SwitchStation One is standing in the corner.
     actions:
       - type: use
-        label: Show conditional description
-        effect: vars.show_conditional_description = true
-        condition: vars.show_conditional_description != true
+        label: Play some games
+        effect: vars.played_games = true
+        condition: vars.played_games != true
+        message: Just when you finished your game, your mom yell's up the stairs:\n\n"Hun, I want to make pancakes for dinner but we're out of eggs, you have to buy some at the grocery store.\n\nAnd please hurry, because the store closes in an hour!"
