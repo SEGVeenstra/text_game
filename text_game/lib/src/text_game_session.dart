@@ -19,9 +19,13 @@ class TextGameSession {
   });
 
   final TextGameConfiguration game;
-  final TextGameProgress progress;
+  TextGameProgress progress;
   final _eventsController = StreamController<TextGameSessionEvent>.broadcast();
   Stream<TextGameSessionEvent> get events => _eventsController.stream;
+
+  void loadProgress(TextGameProgress progress) {
+    this.progress = progress;
+  }
 
   Location get currentLocation {
     final LocationConfiguration locationConfig;
