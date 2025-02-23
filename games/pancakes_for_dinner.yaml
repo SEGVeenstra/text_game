@@ -1,0 +1,21 @@
+meta:
+  title: Example Game
+  description: This is an example Text Adventure for campfireta.com.
+  author: Stephan E.G. Veenstra
+  version: 0.1.0
+items:
+  - id: example_item
+    name: Example Item
+    description: This is a Example Item
+locations:
+  - id: test_location
+    name: Test Location
+    description:
+      - text: This is a description of a location.
+      - text: Descriptions can be conditional, so you can change the description.
+        condition: vars.show_conditional_description == true
+    actions:
+      - type: use
+        label: Show conditional description
+        effect: vars.show_conditional_description = true
+        condition: vars.show_conditional_description != true
