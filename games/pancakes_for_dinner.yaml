@@ -22,7 +22,7 @@ locations:
     name: Your room
     description:
       - text: You're in your room.
-      - text: It's a big mess!.
+      - text: It's a big mess.
         condition: vars.room_clean != true
       - text: You're SwitchStation One is standing in the corner.
     actions:
@@ -49,4 +49,8 @@ locations:
       - text: You forgot the time and now the grocery store is closed.
       - text: You're mom is not happy.
       - text: You're grounded for a week.
+    actions:
+      - type: navigate
+        label: Start over
+        effect: location = intro
         

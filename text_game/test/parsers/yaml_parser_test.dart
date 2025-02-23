@@ -1,7 +1,5 @@
 import 'package:test/test.dart';
-import 'package:text_game/src/parsers/text_adventure_parser.dart';
 import 'package:text_game/text_game.dart';
-import 'package:yaml/yaml.dart';
 
 void main() {
   test(
@@ -28,6 +26,12 @@ locations:
       - type: navigate
         label: Test Action Label
         effect: vars.testVar = 1
+  - id: test2
+    name: Test Location 2
+    description:
+      - text: Static description
+      - text: Conditional description
+        condition: vars.testVar == 1
 ''';
 
       final config = textGameConfigurationFromYaml(loadYaml(yaml));
@@ -36,7 +40,7 @@ locations:
       expect(config.meta.description, 'A test game');
       expect(config.meta.author, 'Test Author');
       expect(config.meta.version, Version(1, 2, 3));
-      expect(config.locations.length, 1);
+      expect(config.locations.length, 2);
 
       final item = config.items[0];
       expect(item.id, 'testItem');

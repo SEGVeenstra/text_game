@@ -39,9 +39,10 @@ LocationConfiguration _locationConfigurationFromYaml(YamlMap yaml) {
   final description =
       descriptionList.map((d) => _descriptionConfigurationFromYaml(d)).toList();
 
-  final actionsList = yaml['actions'] as YamlList;
-  final actions =
-      actionsList.map((a) => _actionConfigurationFromYaml(a)).toList();
+  final actionsList = yaml['actions'] as YamlList?;
+  final actions = actionsList == null
+      ? <ActionConfiguration>[]
+      : actionsList.map((a) => _actionConfigurationFromYaml(a)).toList();
 
   return LocationConfiguration(
     id: id,
