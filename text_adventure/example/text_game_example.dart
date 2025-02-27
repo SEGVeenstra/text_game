@@ -13,7 +13,7 @@ void main() {
         ActionConfiguration(
           label: 'To room B',
           effects: [
-            NavigationEffect('roomB'),
+            NavigationEffect(location: 'roomB'),
           ],
           type: ActionType.navigate,
         ),
@@ -30,7 +30,7 @@ void main() {
           type: ActionType.navigate,
           label: 'To room A',
           effects: [
-            NavigationEffect('roomA'),
+            NavigationEffect(location: 'roomA'),
           ],
         ),
       ],
@@ -48,7 +48,7 @@ void main() {
       Item(id: 'key', name: 'Key', description: 'A key'),
     ],
   );
-  final session = TextGameSession(
+  final session = TextAdventureSession(
     game: game,
     progress: progress,
   );
@@ -60,7 +60,7 @@ void main() {
   printCurrentLocation(session);
 }
 
-void printCurrentLocation(TextGameSession session) {
+void printCurrentLocation(TextAdventureSession session) {
   final currentLocation = session.currentLocation;
   final actions = session.currentActions;
   print(currentLocation.description);

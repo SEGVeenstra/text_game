@@ -16,7 +16,7 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
-  late final session = TextGameSession(
+  late final session = TextAdventureSession(
     game: widget.game,
     progress: TextAdventureProgress(),
   );

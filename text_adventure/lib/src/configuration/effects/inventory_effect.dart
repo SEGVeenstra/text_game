@@ -1,5 +1,5 @@
 import 'package:text_adventure/src/configuration/effects/effect.dart';
-import 'package:text_adventure/src/text_adventure_progress.dart';
+import 'package:text_adventure/text_adventure.dart';
 
 /// An effect that modifies the player's inventory.
 ///
@@ -22,11 +22,11 @@ class InventoryEffect extends Effect {
   final int? set;
 
   @override
-  void apply(TextAdventureProgress progress) {
+  void apply(TextAdventureSession session) {
     if (add != null) {
-      progress.addItem(itemId, add!);
+      session.progress.addItem(itemId, add!);
     } else if (set != null) {
-      progress.setItem(itemId, set!);
+      session.progress.setItem(itemId, set!);
     }
   }
 }

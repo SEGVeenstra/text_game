@@ -11,8 +11,8 @@ class TextAdventureSessionEvent {
   final String message;
 }
 
-class TextGameSession {
-  TextGameSession({
+class TextAdventureSession {
+  TextAdventureSession({
     required this.game,
     required this.progress,
   });
@@ -75,7 +75,7 @@ class TextGameSession {
     action as ActionConfiguration;
 
     for (var effect in action.effects) {
-      effect.apply(progress);
+      effect.apply(this);
     }
 
     if (action.message != null) {
